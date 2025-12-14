@@ -8,9 +8,7 @@ load_dotenv()
 client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
 MEMORY_FILE = "memory.json"
-COMPRESSION_THRESHOLD = 10  # Сжимать каждые 10 сообщений
-
-# === ФУНКЦИИ ПАМЯТИ ===
+COMPRESSION_THRESHOLD = 10
 
 def load_memory():
     """Загрузить историю из файла"""
@@ -46,18 +44,14 @@ def clear_memory():
     else:
         print("Память уже пуста")
 
-# === ФУНКЦИИ СЖАТИЯ ===
-
 def create_summary(messages):
     """Создать summary для списка сообщений"""
-    # Формируем текст диалога
     dialog = "\n".join([
         f"{msg['role']}: {msg['content']}" 
         for msg in messages
         if '[SUMMARY]' not in msg.get('content', '')
     ])
     
-    # Просим Claude сделать краткое содержание
     response = client.messages.create(
         model="claude-sonnet-4-20250514",
         max_tokens=300,
@@ -71,21 +65,18 @@ def create_summary(messages):
 
 def compress_history(history):
     """Сжать историю каждые N сообщений"""
-    # Считаем обычные сообщения (не summary)
     regular_messages = [
         msg for msg in history 
         if '[SUMMARY]' not in msg.get('content', '')
     ]
     
     if len(regular_messages) < COMPRESSION_THRESHOLD:
-        return history  # Ещё рано сжимать
+        return history
     
     print(f"\nСЖАТИЕ (обычных сообщений: {len(regular_messages)})")
     
-    # Берём первые N обычных сообщений
     to_compress = regular_messages[:COMPRESSION_THRESHOLD]
     
-    # Создаём summary
     summary_text = create_summary(to_compress)
     summary_msg = {
         "role": "assistant",
@@ -102,47 +93,38 @@ def compress_history(history):
     
     for msg in history:
         if '[SUMMARY]' in msg.get('content', ''):
-            new_history.append(msg)  # Оставляем старые summary
+            new_history.append(msg)
         elif compressed_count < COMPRESSION_THRESHOLD:
-            compressed_count += 1  # Пропускаем (сжимаем)
+            compressed_count += 1
         else:
-            new_history.append(msg)  # Оставляем новые
+            new_history.append(msg)
     
-    # Добавляем новый summary
     new_history.insert(0, summary_msg)
     
     print(f"Сжато: {len(history)} → {len(new_history)} сообщений")
     
     return new_history
 
-# === ФУНКЦИИ ЧАТА ===
-
 def send_message(user_text, history):
     """Отправить сообщение"""
-    # Добавляем сообщение пользователя
     history = add_message(history, "user", user_text)
     
-    # Готовим для API (без timestamp)
     api_history = [
         {"role": msg["role"], "content": msg["content"]}
         for msg in history
     ]
     
-    # Отправляем
     response = client.messages.create(
         model="claude-sonnet-4-20250514",
         max_tokens=1024,
         messages=api_history
     )
     
-    # Сохраняем ответ
     ai_reply = response.content[0].text
     history = add_message(history, "assistant", ai_reply)
     
-    # Проверяем: нужно ли сжатие?
     history = compress_history(history)
     
-    # Сохраняем в файл
     save_memory(history)
     
     return ai_reply, history
@@ -166,7 +148,6 @@ def show_history(history):
             print(f"{i}. [{timestamp}] {role_icon} {content}")
     print("="*70)
 
-# === ГЛАВНАЯ ПРОГРАММА ===
 
 def main():
     print("="*70)
@@ -174,7 +155,6 @@ def main():
     print(f"   Сжатие каждые {COMPRESSION_THRESHOLD} сообщений")
     print("="*70)
     
-    # Загружаем память при запуске
     history = load_memory()
     
     print("\nКоманды:")
@@ -189,7 +169,6 @@ def main():
         if not user_input:
             continue
         
-        # Команды
         if user_input.lower() == "выход":
             print(f"\nВ памяти: {len(history)} сообщений")
             print("До свидания!")
@@ -206,7 +185,6 @@ def main():
                 history = []
             continue
         
-        # Обычное сообщение
         try:
             reply, history = send_message(user_input, history)
             print(f"\nAI: {reply}")
@@ -215,4 +193,5 @@ def main():
             print(f"Ошибка: {e}")
 
 if __name__ == "__main__":
+
     main()
