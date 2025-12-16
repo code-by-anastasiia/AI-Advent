@@ -140,13 +140,11 @@ class ClaudeAgent:
     def chat(self, user_message: str) -> str:
         """Отправляет сообщение Claude"""
         
-        # Добавляем сообщение пользователя
         self.conversation_history.append({
             "role": "user",
             "content": user_message
         })
         
-        # Вызываем Claude API
         response = self.client.messages.create(
             model="claude-sonnet-4-20250514",
             max_tokens=1024,
@@ -154,7 +152,6 @@ class ClaudeAgent:
             messages=self.conversation_history
         )
         
-        # Обрабатываем вызовы инструментов
         while response.stop_reason == "tool_use":
             tool_use = None
             assistant_message = []
@@ -215,7 +212,6 @@ class ClaudeAgent:
 def main():
     """Главная функция"""
         
-    # Проверка API ключа
     api_key = os.getenv("ANTHROPIC_API_KEY")
     
     if not api_key:
@@ -244,7 +240,6 @@ def main():
     print("Введите 'exit' для выхода\n")
     print("="*70 + "\n")
     
-    # Основной цикл
     while True:
         try:
             user_input = input("Вы: ").strip()
@@ -256,7 +251,6 @@ def main():
                 print("\nДо свидания!")
                 break
             
-            # Отправляем Claude
             response = agent.chat(user_input)
             print(f"\nClaude: {response}\n")
             print("-"*70 + "\n")
@@ -269,4 +263,5 @@ def main():
 
 
 if __name__ == "__main__":
+
     main()
