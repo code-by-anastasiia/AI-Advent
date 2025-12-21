@@ -1,7 +1,3 @@
-"""
-День 15: Windows Programs Agent (Environment)
-Управление программами на компьютере
-"""
 
 import os
 import sys
