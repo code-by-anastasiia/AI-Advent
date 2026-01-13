@@ -1,0 +1,13 @@
+Title: Improve user authentication security
+
+Description:
+- Added bcrypt password hashing
+- Added type hints to all functions
+- Improved email validation with regex
+- Added password length validation
+- Added proper docstrings
+- Better function naming
+
+Author: Student Developer
+Files changed: 1
+Additions: +35, Deletions: -15
