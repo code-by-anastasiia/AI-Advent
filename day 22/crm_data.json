@@ -1,0 +1,49 @@
+{
+  "users": {
+    "user123": {
+      "name": "Анна Петрова",
+      "email": "anna@example.com",
+      "subscription": "premium",
+      "last_login": "2025-01-14",
+      "connected_devices": ["Apple Watch", "iPhone"],
+      "fitness_goal": "Похудение",
+      "current_weight": 68,
+      "target_weight": 62
+    },
+    "user456": {
+      "name": "Иван Смирнов",
+      "email": "ivan@example.com",
+      "subscription": "free",
+      "last_login": "2025-01-10",
+      "connected_devices": ["Android Phone"],
+      "fitness_goal": "Набор мышечной массы",
+      "current_weight": 75,
+      "target_weight": 80
+    }
+  },
+  "tickets": {
+    "ticket_001": {
+      "user_id": "user123",
+      "status": "open",
+      "subject": "Не синхронизируются данные с Apple Watch",
+      "description": "Тренировка не отображается в приложении после пробежки",
+      "created": "2025-01-13",
+      "device": "Apple Watch Series 8"
+    },
+    "ticket_002": {
+      "user_id": "user456",
+      "status": "closed",
+      "subject": "Вопрос по подписке Premium",
+      "description": "Какие функции доступны в Premium?",
+      "created": "2025-01-08",
+      "resolved": "2025-01-09"
+    },
+    "ticket_003": {
+      "user_id": "user123",
+      "status": "open",
+      "subject": "Не засчитываются шаги",
+      "description": "Счётчик шагов показывает 0 весь день",
+      "created": "2025-01-14"
+    }
+  }
+}
