@@ -1,0 +1,80 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "День 20: Ассистент разработчика",
+      "status": "completed",
+      "priority": "high",
+      "description": "RAG для документации проекта + git integration для понимания текущего состояния кода",
+      "tags": ["rag", "mcp", "git"],
+      "completed_date": "2026-01-12"
+    },
+    {
+      "id": 2,
+      "title": "День 21: Автоматизация code review",
+      "status": "completed",
+      "priority": "high",
+      "description": "RAG для стандартов кода + анализ pull requests с рекомендациями",
+      "tags": ["rag", "code-quality"],
+      "completed_date": "2026-01-13"
+    },
+    {
+      "id": 3,
+      "title": "День 22: Ассистент поддержки пользователей",
+      "status": "completed",
+      "priority": "medium",
+      "description": "RAG для FAQ/документации + MCP для CRM интеграции и персонализации",
+      "tags": ["rag", "mcp", "crm"],
+      "completed_date": "2026-01-14"
+    },
+    {
+      "id": 4,
+      "title": "День 23: Командный ассистент",
+      "status": "in_progress",
+      "priority": "high",
+      "description": "RAG для проектной документации + MCP для управления задачами + AI для приоритизации",
+      "tags": ["rag", "mcp", "tasks"],
+      "started_date": "2026-01-15"
+    },
+    {
+      "id": 5,
+      "title": "Рефакторинг: улучшить обработку ошибок",
+      "status": "todo",
+      "priority": "medium",
+      "description": "Добавить try-catch блоки и логирование во все проекты, особенно в RAG системы",
+      "tags": ["refactoring", "errors"]
+    },
+    {
+      "id": 6,
+      "title": "Баг: Ollama embeddings иногда падают",
+      "status": "todo",
+      "priority": "high",
+      "description": "При больших документах Ollama возвращает ошибку timeout. Нужно добавить retry логику",
+      "tags": ["bug", "rag", "ollama"]
+    },
+    {
+      "id": 7,
+      "title": "Улучшение: унифицировать RAG код",
+      "status": "todo",
+      "priority": "low",
+      "description": "Создать общий RAG класс для переиспользования в разных проектах",
+      "tags": ["refactoring", "rag"]
+    },
+    {
+      "id": 8,
+      "title": "Документация: добавить примеры использования",
+      "status": "todo",
+      "priority": "low",
+      "description": "Написать README с примерами запуска для каждого дня курса",
+      "tags": ["documentation"]
+    },
+    {
+      "id": 9,
+      "title": "Тестирование: добавить unit tests",
+      "status": "todo",
+      "priority": "medium",
+      "description": "Написать тесты для RAG системы и MCP серверов",
+      "tags": ["testing"]
+    }
+  ]
+}
